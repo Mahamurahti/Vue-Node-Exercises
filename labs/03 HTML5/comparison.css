@@ -1,0 +1,33 @@
+body{
+    font-family: Arial, Verdana, sans-serif;
+}
+p{
+    font-size: 18px;
+}
+caption{
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+table{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+tr th:first-of-type, td{
+    padding: 0 10px 0 10px;
+}
+thead tr{
+    color: white;
+    background-color: red;
+}
+tr th:first-child, tr td:first-child{
+    text-transform: uppercase;
+    font-weight: bold;
+    border-right: 1px solid black;
+}
+tbody tr:nth-child(2){
+    background-color: lightgray;
+}
