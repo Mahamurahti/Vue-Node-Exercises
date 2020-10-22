@@ -1,0 +1,45 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    margin: 0 20% 0;
+    color: white;
+    background-color: #1b1d26;
+}
+legend{
+    font-size: 18px;
+    font-weight: bold;
+}
+.studinfo{
+    padding: 15px 40% 20px;
+}
+.studinfo label{
+    width: 100%;
+}
+.studinfo input{
+    width: 100%;
+    height: 20px;
+}
+.assigninfo{
+    padding: 15px 30% 20px;
+}
+.assigninfo label{
+    width: 100%;
+}
+.assigninfo input{
+    width: 100%;
+    height: 20px;
+}
+.assigninfo textarea{
+    width: 100%;
+    height: 250px;
+    resize: vertical;
+}
+.assigninfo .cheat{
+    width: 20px;
+}
+.submit{
+    margin: 30px;
+    width: 10%;
+    height: 30px;
+    font-weight: bold;
+}
