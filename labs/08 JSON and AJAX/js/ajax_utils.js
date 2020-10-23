@@ -1,11 +1,11 @@
-var fakeSlowNetwork;
+let fakeSlowNetwork;
 
 // you can ignore this immediately-executing function
 // it is used to simulate a slow network to show you how AJAX and Promises work
 (function() {
-  var lsKey = 'fake-slow-network';
-  var networkFakeDiv = document.querySelector('.network-fake');
-  var checkbox = networkFakeDiv.querySelector('input');
+  let lsKey = 'fake-slow-network';
+  let networkFakeDiv = document.querySelector('.network-fake');
+  let checkbox = networkFakeDiv.querySelector('input');
 
   fakeSlowNetwork = Number(localStorage.getItem(lsKey)) || 0;
 
@@ -29,17 +29,18 @@ var fakeSlowNetwork;
 // *******
 function getSync(url) {
 
-  var req = new XMLHttpRequest();
+  let req = new XMLHttpRequest();
   req.open('get', url, false);
   req.send();
 
   // pause here to simulate slow network - IGNORE
-  var startTime = Date.now();
-  var waitTime = 3000 * Math.random() * fakeSlowNetwork;
+  /*
+  let startTime = Date.now();
+  let waitTime = 3000 * Math.random() * fakeSlowNetwork;
   while (waitTime > Date.now() - startTime);
-
+   */
   // now continue
-  if (req.status == 200) {
+  if (req.status === 200) {
     return req.response;
   }
   else {
@@ -48,23 +49,76 @@ function getSync(url) {
 }
 
 function getJsonSync(url) {
-  return JSON.parse(getSync(url));
+  let json = JSON.parse(getSync(url));
+  let stringson = JSON.stringify(json);
+  if(stringson.includes('dictum')){
+    return addDefinitionToDictum('dictum', stringson)
+  }
+  return json;
 }
 
+// Add definition for the word 'dictum'
+function addDefinitionToDictum(word, json){
+  let index = json.indexOf(word);
+  let definition = JSON.parse(getSync("https://api.dictionaryapi.dev/api/v2/entries/en/" + word));
+  let stringDef = definition[0].meanings[0].definitions[0].definition;
+  let numOfChars = word.length;
+  let addDef = json.splice(index + numOfChars, 0, " ("+stringDef+")");
+  return JSON.parse(addDef);
+}
+String.prototype.splice = function(start, delCount, newSubStr) {
+  return this.slice(0, start) + newSubStr + this.slice(start + Math.abs(delCount));
+};
+
+// Add definitions to any double clicked word, if found
+function addDefinitionToList(word){
+  try{
+    let defList = document.getElementById("definitions");
+    let definition = JSON.parse(getSync("https://api.dictionaryapi.dev/api/v2/entries/en/" + word));
+    let stringDef = definition[0].meanings[0].definitions[0].definition;
+    let p = document.createElement('p');
+    p.innerHTML = stringDef;
+    defList.appendChild(p);
+  }catch (err){
+    let defList = document.getElementById("definitions");
+    let stringDef = "Not found...";
+    let p = document.createElement('p');
+    p.innerHTML = stringDef;
+    defList.appendChild(p);
+  }
+}
+
+function getSelectionText() {
+  let txt = '';
+  if (window.getSelection) {
+    txt = window.getSelection();
+  } else if (document.getSelection) {
+    txt = document.getSelection();
+  }
+  return txt;
+}
+
+// Add definition for any word that is double-clicked
+function addListeners(){
+  document.querySelector('*').addEventListener("dblclick", function (){
+    let text = getSelectionText();
+    addDefinitionToList(text);
+  });
+}
 
 // ******* 
 // DOM STUFF
 // *******
-var storyDiv = document.querySelector('.story');
+let storyDiv = document.querySelector('.story');
 
 function addHtmlToPage(content) {
-  var div = document.createElement('div');
+  let div = document.createElement('div');
   div.innerHTML = content;
   storyDiv.appendChild(div);
 }
 
 function addTextToPage(content) {
-  var p = document.createElement('p');
+  let p = document.createElement('p');
   p.textContent = content;
   storyDiv.appendChild(p);
 }

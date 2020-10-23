@@ -9,6 +9,7 @@
     <label><input type="checkbox"> Fake network delay</label>
   </div>
   <div class="story"></div>
+  <div id="definitions"></div>
   <svg class="spinner" viewBox="0 0 100 100" width="20" height="20">
     <circle cx="50" cy="50" r="42" transform="rotate(-90,50,50)" />
   </svg>
@@ -18,11 +19,11 @@
     try {
       // Use Github Gist when no web server is available
       // var story = getJsonSync('https://gist.githubusercontent.com/c0lin/571d38b984d41b44aacf/raw/story.json');
-      var story = getJsonSync('data/story.json');
+      let story = getJsonSync('data/story.json');
       addHtmlToPage(story.heading);
 
       story.chapterUrls.forEach(function(chapterUrl) {
-        var chapter = getJsonSync('data/'+chapterUrl); // remove the 'data/' part if using gist
+        let chapter = getJsonSync('data/'+chapterUrl); // remove the 'data/' part if using gist
         addHtmlToPage(chapter.html);
       });
 
@@ -33,6 +34,7 @@
     }
 
     document.querySelector('.spinner').style.display = 'none';
+    addListeners();
   </script>
 </body>
 </html>

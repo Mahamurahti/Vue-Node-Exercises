@@ -5,7 +5,7 @@
 // Who needs jQuery? You can now write your own!
 // See http://youmightnotneedjquery.com/ for further inspiration
 
-var U = {
+let U = {
 
     // For getting the document element by ID:
     $: function(id) {
@@ -22,7 +22,7 @@ var U = {
         && (typeof message == 'string') ) {
     
             // Get a reference to the element:
-            var output = this.$(id);
+            let output = this.$(id);
             if (!output) return false;
         
             // Set the text

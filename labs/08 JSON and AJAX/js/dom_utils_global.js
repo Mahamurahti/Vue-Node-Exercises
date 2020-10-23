@@ -22,14 +22,14 @@
 	// Register events on elements that may or may not exist yet:
 	// $live('div a', 'click', function (event) {});
 	window.$live = (function () {
-		var eventRegistry = {};
+		let eventRegistry = {};
 
 		function dispatchEvent(event) {
-			var targetElement = event.target;
+			let targetElement = event.target;
 
 			eventRegistry[event.type].forEach(function (entry) {
-				var potentialElements = window.qsa(entry.selector);
-				var hasMatch = Array.prototype.indexOf.call(potentialElements, targetElement) >= 0;
+				let potentialElements = window.qsa(entry.selector);
+				let hasMatch = Array.prototype.indexOf.call(potentialElements, targetElement) >= 0;
 
 				if (hasMatch) {
 					entry.handler.call(targetElement, event);
