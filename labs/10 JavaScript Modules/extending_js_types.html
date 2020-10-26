@@ -6,8 +6,8 @@
 <script>
 
 String.prototype.palindrome = function() {
-	var len = this.length-1;
-	for (var i = 0; i <= len; i++) {
+    let len = this.length-1;
+	for (let i = 0; i <= len; i++) {
 		if (this.charAt(i) !== this.charAt(len-i)) {
 			return false;
 		}
@@ -22,19 +22,24 @@ String.prototype.palindrome = function() {
 // SUPER advanced way
 //
 String.prototype.palindromeAdv = function() {
-	var r = this.split("").reverse().join("");
+    // Split: makes the sentence into an array, containing every char of the word
+    // Reverse: reverses the order of the array, making the first element the last and so on
+    // Join: makes the currently reversed array of chars into a string
+    // The result is the original word but reversed and the return value is true,
+    // if the reversed sentence is the same as the original one
+    let r = this.split("").reverse().join("");
 	return (r === this.valueOf());
 }
 
-var phrases = ["eve",
+let phrases = ["eve",
                "kayak",
                "mom",
                "wow",
                "noon",
                "Not a palindrome"];
 
-for (var i = 0; i < phrases.length; i++) {
-	var phrase = phrases[i];
+for (let i = 0; i < phrases.length; i++) {
+    let phrase = phrases[i];
 	if (phrase.palindrome()) {
 		console.log("'" + phrase + "' is a palindrome");
 	} else {
