@@ -2,23 +2,28 @@
 
 console.log(document);
 
-document.getElementById('save').onclick = save;
-document.querySelector('#userForm input[type="email"]').onkeypress = function() {
-	console.log('updating email');
-	var email = document.querySelector('#userForm input[type="email"]').value;
-	document.querySelector('#summary p').innerHTML = email;
-};
-
-
-function save() {
+document.getElementById('userForm').oninput = function () {
 	console.log('save');
-	// get a DOM object representing a form field.
-	var name = document.querySelector('#userForm input[type="text"]');
+
+	let name = document.querySelector('#userForm input[type="text"]');
 	console.log(name);
 	document.querySelector('#summary h1').innerHTML = name.value;
-	var data = document.querySelectorAll('#userForm input');
-	console.log(data);
-	var paragraphs = document.querySelectorAll('#summary p');
+
+	let paragraphs = document.querySelectorAll('#summary p');
 	console.log('found '+paragraphs.length+' p tags');
-	paragraphs[1].innerHTML = 'Hello World!';
-}
+
+	let email = document.querySelector('#userForm input[type="email"]');
+	console.log(email);
+	paragraphs[0].innerHTML = email.value;
+
+	let passwd = document.querySelector('#userForm input[type="password"]');
+	console.log(passwd);
+	paragraphs[1].innerHTML = passwd.value;
+};
+/*
+document.querySelector('#userForm input[type="email"]').onclick = function() {
+	console.log('updating email');
+	let email = document.querySelector('#userForm input[type="email"]').value;
+	document.querySelector('#summary p').innerHTML = email;
+};
+*/
