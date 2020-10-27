@@ -5,21 +5,40 @@
   <title> JSON </title>
   <script>
 
-var fidoString = '{ "name": "Fido", "breed": "Mixed", "weight": 38 }';
-var fido = JSON.parse(fidoString);
+let fidoString = '{ "name": "Fido", "breed": "Mixed", "weight": 38 }';
+let fido = JSON.parse(fidoString);
 console.log("We have made a dog out of a string! " + fido.name);
 
-
-var fido2 = {
+let fido2 = {
 	name: "Fido",
 	breed: "Mixed",
 	weight: 38
 };
-var fidoString = JSON.stringify(fido2);
+fidoString = JSON.stringify(fido2);
 console.log("We made a string from a dog! " + fidoString);
 
   </script>
 </head>
 <body>
 </body>
+
+<script>
+  let game = {
+    name: { firstPart: "The Elder Scrolls",
+      secondPart: "Skyrim"},
+    rating: "10/10"
+  };
+  let myString = JSON.stringify(game);
+  let div = document.createElement('div');
+  div.innerHTML = myString;
+  document.body.appendChild(div);
+  let json = JSON.parse(myString);
+  let gameName = json.name;
+  myString = JSON.stringify(gameName);
+  div = document.createElement('div');
+  div.innerHTML = myString;
+  document.body.appendChild(div);
+
+</script>
+
 </html>

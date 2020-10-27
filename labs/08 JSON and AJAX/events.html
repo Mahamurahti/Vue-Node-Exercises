@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <title> Handling events in IE8 and earlier </title>
@@ -10,17 +10,21 @@
   </style>
   <script>
 window.onload = function() {
-	var div = document.getElementById("clickme");
+	let div = document.getElementById("clickme");
 	if (div.addEventListener) {
 		div.addEventListener("click", handleClick, false);
 	} else if (div.attachEvent) {
 		div.attachEvent("click", handleClick);
 	}
+
+	let newDiv = document.getElementById('newDiv');
+	newDiv.onmouseover = handleMouseOver;
+
 };
 
 function handleClick(e) {
-	var evt = e || window.event;
-	var target;
+    let evt = e || window.event;
+    let target;
 	if (evt.target) {
 		target = evt.target;
 	} else {
@@ -29,9 +33,15 @@ function handleClick(e) {
 	alert("You clicked on " + target.id);
 }
 
+function handleMouseOver(e) {
+    let event = e.target.id;
+    alert("Your mouse was over " + event);
+}
+
   </script>
 </head>
 <body>
 <span id="clickme">Click me!</span>
+<div id="newDiv">Some text</div>
 </body>
 </html>
