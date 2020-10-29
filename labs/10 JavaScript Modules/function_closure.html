@@ -55,7 +55,7 @@ window.onload = function () {
 	document.getElementById('plus').onclick = function () {
 		speed++;
 	};
-	document.body.onclick = function () {
+	document.getElementById('container').onclick = function () {
 		div.innerHTML = message + speed;
 	};
 };
@@ -65,10 +65,12 @@ window.onload = function () {
 <body>
 	<button id="clickme">Click me!</button>
 	<div id="message"></div>
-	<button id="minus">-</button>
-	<button id="zero">0</button>
-	<button id="plus">+</button>
-	<div id="playback-speed"></div>
+	<div id="container">
+		<button id="minus">-</button>
+		<button id="zero">0</button>
+		<button id="plus">+</button>
+		<div id="playback-speed"></div>
+	</div>
 </body>
 </html>
 
