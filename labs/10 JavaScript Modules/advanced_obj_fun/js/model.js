@@ -118,7 +118,4 @@
 	window.app = window.app || {};
 	window.app.Model = Model;
 
-	// Test the custom utility object that the task needs:
-	$.id('myButton');
-
 })(window);
