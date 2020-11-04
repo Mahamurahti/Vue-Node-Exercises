@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Small Calculator</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p>{{ count }}</p>
+    <button v-on:click="minus">-</button>
+    <button v-on:click="zero">0</button>
+    <button v-on:click="plus">+</button>
+</div>
+</body>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: {
+            count: 0
+        },
+        methods: {
+            minus: function () {
+                this.count--;
+            },
+            zero: function () {
+                this.count = 0;
+            },
+            plus: function () {
+                this.count++;
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List + Delete any</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <input v-model="todo"/> <button v-on:click="add">Add</button>
+    <ol>
+        <li v-for="(todo, index) in todos">
+            {{ todo.text }}<button v-on:click="remove(index)">Delete</button>
+        </li>
+    </ol>
+</div>
+</body>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: {
+            todo: 'Write here',
+            todos: [
+                { text: 'Learn JavaScript' },
+                { text: 'Learn Vue' },
+                { text: 'Build something awesome' }
+            ]
+        },
+        methods: {
+            add: function () {
+                this.todos.push({text: this.todo});
+            },
+            remove: function (index) {
+                this.todos.splice(index, 1);
+            }
+        }
+    })
+</script>
+</html>
