@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form-example</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+    body{
+        display: flex;
+        justify-content: center;
+
+        font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        margin-top: 10%;
+        width: 400px;
+        text-align: center;
+    }
+    form label{
+        font-size: 16px;
+        font-weight: bold;
+    }
+    form input{
+        border: none;
+        border-bottom: 2px solid black;
+        padding: 5px;
+    }
+    form input:focus{
+        outline: none;
+    }
+    .button{
+        border: 2px solid black;
+        border-radius: 25px;
+        background: white;
+
+        transition: .2s ease-in-out;
+    }
+    .button:hover{
+        font-size: 16px;
+        font-weight: bold;
+    }
+</style>
+<body>
+<form action="http://127.0.0.1:8081/process_post" method="POST" oninput="verifyForm()">
+    <label for="first_name">First Name:</label><input type="text" name="first_name" id="first_name" pattern="[A-Z][a-z]{1,}"
+                                                      placeholder="John" oninput="verifyInput('first_name')" required> <br>
+    <label for="last_name">Last Name:</label><input type="text" name="last_name" id="last_name" pattern="[A-Z][a-z]{1,}"
+                                                    placeholder="Doe" oninput="verifyInput('last_name')" required><br>
+    <label for="email">Email:</label><input type="text" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
+                                            placeholder="johndoe@example.com" oninput="verifyInput('email')" required><br>
+    <label for="age">Age:</label><input type="number" min="1" name="age" id="age" placeholder="20" oninput="verifyInput('age')"
+                                        required><br>
+    <input class="button" type="submit" value="Submit" id="button">
+</form>
+</body>
+<script>
+    function verifyInput(id){
+
+        let element = document.getElementById(id);
+
+        if(!element.checkValidity()){
+            element.style.borderBottom = "2px solid red";
+        }else{
+            element.style.borderBottom = "2px solid green";
+        }
+    }
+    function verifyForm(){
+        let form = document.querySelector("form");
+        let button = document.getElementById('button');
+
+        if(!form.checkValidity()){
+            button.style.background = '#f27294';
+            button.style.color = 'black';
+        }else{
+            button.style.background = 'green';
+            button.style.color = 'white';
+        }
+    }
+</script>
+</html>
