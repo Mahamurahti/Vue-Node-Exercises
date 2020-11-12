@@ -122,27 +122,21 @@ app.post("/api/event", urlEncodedParser, function (req, res){
 
     let json = req.body;
 
-    let sql, latestId, idLoc, idEvt;
+    let sql, insertedId;
 
     if(json.eventLocation > 0){
         console.log('Creating an event in an existing place');
         (async () => {
             console.log('Starting async');
             try{
-                sql = "SELECT MAX(event_id) AS max FROM event";
-                latestId = await query(sql);
-                id = JSON.parse(JSON.stringify(latestId));
-                id = id[0].max;
-                id++;
-
-                sql = "INSERT INTO event (Event_id, Name, Type, Location_Location_id) VALUES (?, ?, ?, ?)";
-                const resultEvent = await query(sql, [id, json.eventName, json.eventType, json.eventLocation]);
+                sql = "INSERT INTO event (Name, Type, Location_Location_id) VALUES (?, ?, ?)";
+                const resultEvent = await query(sql, [json.eventName, json.eventType, json.eventLocation]);
+                insertedId = resultEvent.insertId;
 
                 sql = "INSERT INTO event_date (Date, Event_id) VALUES (?, ?)";
-                const resultEvent_id = await query(sql, [json.eventDate, id]);
+                const resultEvent_id = await query(sql, [json.eventDate, insertedId]);
 
                 res.send('Post was successful. Added a new event to an existing place!');
-
             }catch(err){
                 console.log("Database error!" + err);
             }
@@ -155,31 +149,20 @@ app.post("/api/event", urlEncodedParser, function (req, res){
         (async () => {
             console.log('Starting async');
             try{
-                sql = "SELECT MAX(location_id) AS max FROM location";
-                latestId = await query(sql);
-                idLoc = JSON.parse(JSON.stringify(latestId));
-                idLoc = idLoc[0].max;
-                idLoc++;
-
-                sql = "INSERT INTO location (Location_id, Location_name, Street_address, City, Zip, Country) " +
-                    "VALUES (?, ?, ?, ?, ?, ?)";
-                const resultLocation = await query(sql, [idLoc, json.locPlaceName, json.locStreetAddress,
+                sql = "INSERT INTO location (Location_name, Street_address, City, Zip, Country) " +
+                    "VALUES (?, ?, ?, ?, ?)";
+                const resultLocation = await query(sql, [json.locPlaceName, json.locStreetAddress,
                     json.locCity, json.locZip, json.locCountry]);
+                insertedId = resultLocation.insertId;
 
-                sql = "SELECT MAX(event_id) AS max FROM event";
-                latestId = await query(sql);
-                idEvt = JSON.parse(JSON.stringify(latestId));
-                idEvt = idEvt[0].max;
-                idEvt++;
-
-                sql = "INSERT INTO event (Event_id, Name, Type, Location_Location_id) VALUES (?, ?, ?, ?)";
-                const resultEvent = await query(sql, [idEvt, json.eventName, json.eventType, idLoc]);
+                sql = "INSERT INTO event (Name, Type, Location_Location_id) VALUES (?, ?, ?)";
+                const resultEvent = await query(sql, [json.eventName, json.eventType, insertedId]);
+                insertedId = resultEvent.insertId;
 
                 sql = "INSERT INTO event_date (Date, Event_id) VALUES (?, ?)";
-                const resultEvent_id = await query(sql, [json.eventDate, idEvt]);
+                const resultEvent_id = await query(sql, [json.eventDate, insertedId]);
 
                 res.send('Post was successful. Added a new event with a new location!');
-
             }catch(err){
                 console.log("Database error!" + err);
             }
@@ -188,7 +171,6 @@ app.post("/api/event", urlEncodedParser, function (req, res){
             }
         })()
     }
-
 });
 
 app.get("/events", function (req, res){
